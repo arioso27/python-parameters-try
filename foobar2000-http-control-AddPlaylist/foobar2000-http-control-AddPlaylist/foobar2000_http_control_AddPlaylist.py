@@ -10,15 +10,27 @@ from http import client
 import urllib.parse
 import urllib.request
 
-
 def main( argv=None ):
-	sys.stdout = codecs.getwriter("utf_8")(sys.stdout.detach()) ##important
-	sys.stdin = codecs.getwriter("utf_8")(sys.stdin.detach()) ##important
+	sysCode = sys.getdefaultencoding()
+	print( "defaultencoding=", sysCode )
+	if( 1 ):
+		##vs2015 debug will raise exception in sys.stdout.detach(), but just run it not
+		try:
+			sys.stdout = codecs.getwriter("utf_8")(sys.stdout.detach()) ##important
+		except:
+			print("except error stdout")
+		try:
+			sys.stdin = codecs.getwriter("utf_8")(sys.stdin.detach()) ##important
+		except:
+			print("except error stdin")
+
+	out = sys.stdout
+	out.flush()
 
 	if argv is None:
 		argv = sys.argv
-    # etc., replacing sys.argv with argv in the getopt() call.
-	#_ if
+        # etc., replacing sys.argv with argv in the getopt() call.
+    #_ if
 
 	noArgv = len(argv)
 	if noArgv <= 1:
@@ -28,6 +40,7 @@ def main( argv=None ):
 	print( "noArgv=", noArgv )
 	dirIN = argv[1]
 	print( "dirIN=", dirIN )
+	sys.stdout.flush()
 
 #_ def main
 
