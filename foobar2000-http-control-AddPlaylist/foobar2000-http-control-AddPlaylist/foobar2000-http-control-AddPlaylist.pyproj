@@ -12,8 +12,8 @@
     <OutputPath>.</OutputPath>
     <Name>foobar2000-http-control-AddPlaylist</Name>
     <RootNamespace>foobar2000-http-control-AddPlaylist</RootNamespace>
-    <InterpreterId>{ceaa64d6-ca2d-4448-8664-926b05541c77}</InterpreterId>
-    <InterpreterVersion>3.5</InterpreterVersion>
+    <InterpreterId>{05a9e950-caa5-41c5-9089-e065c314a41b}</InterpreterId>
+    <InterpreterVersion>3.4</InterpreterVersion>
     <IsWindowsApplication>False</IsWindowsApplication>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <CommandLineArguments>"G:\hh-bak\mp3\VA - 云叔のJPOP推薦9"</CommandLineArguments>
@@ -33,6 +33,19 @@
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{ceaa64d6-ca2d-4448-8664-926b05541c77}\3.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env35\">
+      <Id>{05a9e950-caa5-41c5-9089-e065c314a41b}</Id>
+      <BaseInterpreter>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</BaseInterpreter>
+      <Version>3.4</Version>
+      <Description>env35 (Python 3.4)</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <LibraryPath>Lib\</LibraryPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X86</Architecture>
+    </Interpreter>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
