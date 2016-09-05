@@ -19,6 +19,9 @@
     <CommandLineArguments>"G:\hh-bak\mp3\VA - 云叔のJPOP推薦9"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <DebugStdLib>False</DebugStdLib>
+    <InterpreterArguments>-i</InterpreterArguments>
+    <Environment>VS_DEBUG=TRUE
+PYTHONIOENCODING=UTF-8</Environment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
