@@ -10,6 +10,37 @@ from http import client
 import urllib.parse
 import urllib.request
 
+
+def httpGet( servName=None, urlPath=None, waitTime=5 ):
+	if (urlPath == None) or (servName == None):
+		return (-1, None)
+	srv = None
+	resp = None
+	
+	try:
+		srv = client.HTTPConnection(servName, timeout=waitTime) # connect to http site/server
+	except:
+		print ("HTTP Connection Exception")
+		return (-1, None)
+		
+	print("srv:",srv)
+	if srv is None:
+		print ("HTTP Connection Fail")
+		return (-1, None)
+
+	try:
+		srv.request( "GET", urlPath )
+	except:
+		print ("HTTP request Exception")
+		return (-1, None)
+	resp = srv.getresponse()  # read reply info headers
+	print( "httpGet:", resp.status, resp.reason )
+	srv.close()
+	
+	return (1, resp)
+#_ def httpGet
+
+
 def main( argv=None ):
 	sysCode = sys.getdefaultencoding()
 	print( "defaultencoding=", sysCode )
@@ -49,6 +80,7 @@ def main( argv=None ):
 	out.flush()
 
 	servName = "192.168.1.2:8888"
+
 	##create playlist
 	newPlName = os.path.basename(dirIN) ## 傳回路徑的最後一個部分
 	print( "newPlName=[", newPlName, "]" )
@@ -57,6 +89,35 @@ def main( argv=None ):
 	paraCmdee = urllib.parse.urlencode(paraCmd)
 	urlPath = "/ajquery/?" + paraCmdee
 	print( "urlPath=["+ urlPath +"]" )
+	rc, rsp = httpGet( servName, urlPath )
+	print( "rc=", rc )
+
+
+	##switch playlist index 1
+	toIdx = 1
+	paraCmd = { "cmd":"SwitchPlaylist", "param1":1, "param3":"js/state.json" }
+	paraCmdee = urllib.parse.urlencode(paraCmd)
+	urlPath = "/ajquery/?" + paraCmdee
+	print( "urlPath=["+ urlPath +"]" )
+	rc, rsp = httpGet( servName, urlPath, 2 )
+	print( "rc=", rc )
+
+	
+	##EnqueueDir items to playlist
+	eqDir = dirIN + "\\"
+	print( "eqDir=[", eqDir, "]" )
+	paraCmd = { "cmd":"Browse", "param1":eqDir, "param2":"EnqueueDir", "param3":"js/state.json" }
+	paraCmdee = urllib.parse.urlencode(paraCmd)
+	urlPath = "/ajquery/?" + paraCmdee
+	print( "urlPath=["+ urlPath +"]" )
+	rc, rsp = httpGet( servName, urlPath, 5 )
+	print( "rc=", rc )
+
+	if (rc != 1) or (rsp.status != 200):
+		print( "Error in foobar2000 Enqueue Dir")
+	#_ if
+	print( "----------\n" )
+
 
 #_ def main
 
